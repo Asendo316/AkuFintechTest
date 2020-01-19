@@ -23,6 +23,7 @@
 * Documentation: Swagger
 * Security: JWT 
 * IDE : Visual Studio 2017
+* Host Environment: Microsoft Azure
 
 **How To Install**
 * git clone repository
@@ -38,3 +39,7 @@
 * Signup with valid credentials using the documentation
 * Copy generated token on login
 * Click on Authenticate and Enter: Bearer <Token you copied> then submit
+  
+**Deployment URL**
+* Local Host URL: https://localhost:5001/swagger/index.html
+* Live URL: https://acutestrestapi20200119013938.azurewebsites.net/swagger/index.html
