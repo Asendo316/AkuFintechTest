@@ -128,7 +128,38 @@ namespace AcuTestRestAPI.Controllers.v1.user.file
             });
         }
 
+        /// <summary>
+        /// Rerun Comparism
+        /// </summary>
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet(ApiRoutes.History.RerunComparism)]
+        public async Task<IActionResult> RerunCOmparism([FromRoute]Guid historyId)
+        {
+            var history = await _compareFilesService.GetComparismByIdAsync(historyId);
+            double percentageSimilarity;
+            string file1, file2;
+            if (history != null)
+            {
 
+                file1 = history.FirstStudentFile;
+                file2 = history.SecondStudentFile;
+                percentageSimilarity = CalculateSimilarity(file1, file2);
+
+            }
+            else
+            {
+                return NotFound(new GenericResponse { Status = "Failed", Message = "Oops, No History for this Professor" });
+            }
+
+            return Ok(new ComparismResponse
+            {
+                FirstStudentName = history.FirstStudentName,
+                FirstStudentFileContent = file1,
+                SecondStudentName = history.SecondStudentName,
+                SecondStudentFileContent = file2,
+                PercentageSimilarity = percentageSimilarity * 100 + "%"
+            });
+        }
 
 
         /**
